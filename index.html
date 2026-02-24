@@ -131,6 +131,25 @@ a { text-decoration: none; color: inherit; }
 .fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
 .fade-in.visible { opacity: 1; transform: translateY(0); }
 
+.calendar { max-width: 800px; margin: 0 auto; }
+.calendar__nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.calendar__month { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 400; letter-spacing: 0.03em; }
+.calendar__btn { background: none; border: 1px solid var(--color-border); color: var(--color-text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+.calendar__btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.calendar__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.calendar__weekday { text-align: center; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-light); padding: 8px 0 16px; }
+.calendar__day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; border-radius: 50%; cursor: default; transition: var(--transition); }
+.calendar__day--available { color: var(--color-text); }
+.calendar__day--booked { background: var(--color-bg-alt); color: var(--color-text-light); text-decoration: line-through; opacity: 0.5; }
+.calendar__day--today { border: 1px solid var(--color-accent); color: var(--color-accent); font-weight: 500; }
+.calendar__day--past { opacity: 0.3; }
+.calendar__legend { display: flex; justify-content: center; gap: 32px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.legend__item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--color-text-light); }
+.legend__dot { width: 12px; height: 12px; border-radius: 50%; }
+.legend__dot--available { border: 1px solid var(--color-border); background: white; }
+.legend__dot--booked { background: var(--color-bg-alt); border: 1px solid var(--color-border); opacity: 0.5; }
+.calendar__loading { text-align: center; padding: 60px; color: var(--color-text-light); font-size: 0.95rem; }
+
 @media (max-width: 968px) {
   .nav__links { display: none; }
   .nav__hamburger { display: block; }
@@ -167,6 +186,7 @@ a { text-decoration: none; color: inherit; }
       <a href="#rooms" data-it="Alloggio" data-en="Accommodation">Alloggio</a>
       <a href="#gallery" data-it="Galleria" data-en="Gallery">Galleria</a>
       <a href="#location" data-it="Posizione" data-en="Location">Posizione</a>
+      <a href="#availability" data-it="Disponibilità" data-en="Availability">Disponibilità</a>
       <a href="#contact" data-it="Contatti" data-en="Contact">Contatti</a>
       <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
     </div>
@@ -181,6 +201,7 @@ a { text-decoration: none; color: inherit; }
     <a href="#rooms" data-it="Alloggio" data-en="Accommodation">Alloggio</a>
     <a href="#gallery" data-it="Galleria" data-en="Gallery">Galleria</a>
     <a href="#location" data-it="Posizione" data-en="Location">Posizione</a>
+    <a href="#availability" data-it="Disponibilità" data-en="Availability">Disponibilità</a>
     <a href="#contact" data-it="Contatti" data-en="Contact">Contatti</a>
     <button class="lang-toggle" id="langToggleMobile" aria-label="Switch language">EN</button>
   </div>
@@ -333,6 +354,28 @@ a { text-decoration: none; color: inherit; }
     </div>
   </section>
 
+  <!-- Availability -->
+  <section class="section" id="availability">
+    <div class="container">
+      <h2 class="section__title" data-it="Disponibilità" data-en="Availability">Disponibilità</h2>
+      <p class="section__intro" data-it="Verifica le date libere e prenota il tuo soggiorno." data-en="Check available dates and book your stay.">Verifica le date libere e prenota il tuo soggiorno.</p>
+      <div class="calendar" id="calendar">
+        <div class="calendar__nav">
+          <button class="calendar__btn" id="calPrev">&#8249;</button>
+          <span class="calendar__month" id="calMonth"></span>
+          <button class="calendar__btn" id="calNext">&#8250;</button>
+        </div>
+        <div class="calendar__grid" id="calGrid">
+          <div class="calendar__loading">Caricamento disponibilità...</div>
+        </div>
+        <div class="calendar__legend">
+          <div class="legend__item"><div class="legend__dot legend__dot--available"></div><span data-it="Disponibile" data-en="Available">Disponibile</span></div>
+          <div class="legend__item"><div class="legend__dot legend__dot--booked"></div><span data-it="Occupato" data-en="Booked">Occupato</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- Contact -->
   <section class="section" id="contact">
     <div class="container container--narrow">
@@ -340,7 +383,7 @@ a { text-decoration: none; color: inherit; }
       <p class="section__intro" data-it="Contattaci direttamente o prenota tramite Airbnb." data-en="Contact us directly or book via Airbnb.">Contattaci direttamente o prenota tramite Airbnb.</p>
       <div class="contact__actions">
         <a href="https://www.airbnb.it/rooms/33516234" target="_blank" rel="noopener" class="btn btn--primary" data-it="Prenota su Airbnb" data-en="Book on Airbnb">Prenota su Airbnb</a>
-        <a href="mailto:info@laleanto.it" class="btn btn--secondary" data-it="Scrivici" data-en="Write to us">Scrivici</a>
+        <a href="/cdn-cgi/l/email-protection#cda4a3aba28da1aca1a8aca3b9a2e3a4b9" class="btn btn--secondary" data-it="Scrivici" data-en="Write to us">Scrivici</a>
       </div>
     </div>
   </section>
@@ -366,7 +409,7 @@ a { text-decoration: none; color: inherit; }
     </div>
   </footer>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 document.addEventListener('DOMContentLoaded', () => {
   const nav = document.getElementById('nav');
   const handleScroll = () => { nav.classList.toggle('nav--scrolled', window.scrollY > 60); };
@@ -422,8 +465,96 @@ document.addEventListener('DOMContentLoaded', () => {
   lightbox.querySelector('.lightbox__prev').addEventListener('click', () => navigateLightbox(-1));
   lightbox.querySelector('.lightbox__next').addEventListener('click', () => navigateLightbox(1));
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
-  document.addEventListener('keydown', (e) => { if (!lightbox.classList.contains('active')) return; if (e.key === 'Escape') closeLightbox(); if (e.key === 'ArrowLeft') navigateLightbox(-1); if (e.key === 'ArrowRight') navigateLightbox(1); });
+  eLightbox(); else if (e.key === 'ArrowLeft') navigateLightbox(-1); else if (e.key === 'ArrowRight') navigateLightbox(1); });
+
+  // ── CALENDARIO CUSTOM ──────────────────────────────────────────
+  const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS_IT = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+  const DAYS_EN = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  let bookedDates = new Set();
+  let calDate = new Date();
+  let calLang = 'it';
+
+  async function loadCalendar() {
+    try {
+      const res = await fetch('/api/calendar');
+      const data = await res.json();
+      bookedDates = new Set();
+      if (data.events) {
+        data.events.forEach(ev => {
+          let d = new Date(ev.start.substring(0,4), parseInt(ev.start.substring(4,6))-1, parseInt(ev.start.substring(6,8)));
+          const end = new Date(ev.end.substring(0,4), parseInt(ev.end.substring(4,6))-1, parseInt(ev.end.substring(6,8)));
+          while (d < end) {
+            bookedDates.add(d.toISOString().substring(0,10));
+            d.setDate(d.getDate()+1);
+          }
+        });
+      }
+    } catch(e) { console.log('Calendar load error', e); }
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    const months = calLang === 'it' ? MONTHS_IT : MONTHS_EN;
+    const days = calLang === 'it' ? DAYS_IT : DAYS_EN;
+    document.getElementById('calMonth').textContent = months[calDate.getMonth()] + ' ' + calDate.getFullYear();
+
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    // Intestazioni giorni
+    days.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'calendar__weekday';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const year = calDate.getFullYear();
+    const month = calDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    // Lunedì = 0
+    let startOffset = (firstDay.getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+
+    // Celle vuote
+    for (let i = 0; i < startOffset; i++) {
+      const el = document.createElement('div');
+      el.className = 'calendar__day calendar__day--empty';
+      grid.appendChild(el);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      const date = new Date(year, month, d);
+      const dateStr = date.toISOString().substring(0,10);
+      let cls = 'calendar__day';
+      if (date < today) cls += ' calendar__day--past';
+      else if (bookedDates.has(dateStr)) cls += ' calendar__day--booked';
+      else cls += ' calendar__day--available';
+      if (date.toDateString() === today.toDateString()) cls += ' calendar__day--today';
+      el.className = cls;
+      el.textContent = d;
+      grid.appendChild(el);
+    }
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()-1); renderCalendar(); });
+  document.getElementById('calNext').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()+1); renderCalendar(); });
+
+  // Aggiorna lingua calendario al switch lingua
+  const origSwitchLang = switchLanguage;
+  function switchLanguage() {
+    origSwitchLang();
+    calLang = currentLang;
+    renderCalendar();
+  }
+
+  loadCalendar();
 });
-  </script>
+</script>
 </body>
 </html>
