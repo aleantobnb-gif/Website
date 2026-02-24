@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>L'Aleanto — B&B Conca dei Marini</title>
+  <meta name="description" content="L'Aleanto — Un rifugio elegante sulla Costiera Amalfitana. B&B a Conca dei Marini con giardino privato e vista mare.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --color-bg: #FAFAF8;
+  --color-bg-alt: #F2F0EC;
+  --color-text: #2C2C2C;
+  --color-text-light: #6B6B6B;
+  --color-accent: #8B7355;
+  --color-accent-hover: #6F5B43;
+  --color-white: #FFFFFF;
+  --color-border: #E5E2DC;
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', -apple-system, sans-serif;
+  --transition: 0.3s ease;
+  --max-width: 1200px;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { font-family: var(--font-body); color: var(--color-text); background: var(--color-bg); line-height: 1.7; font-weight: 300; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { text-decoration: none; color: inherit; }
+.container { max-width: var(--max-width); margin: 0 auto; padding: 0 24px; }
+.container--narrow { max-width: 720px; }
+
+.nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 40px; transition: var(--transition); }
+.nav--scrolled { background: rgba(250, 250, 248, 0.95); backdrop-filter: blur(20px); padding: 14px 40px; box-shadow: 0 1px 0 var(--color-border); }
+.nav__logo { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 400; letter-spacing: 0.05em; color: var(--color-white); transition: var(--transition); }
+.nav--scrolled .nav__logo { color: var(--color-text); }
+.nav__links { display: flex; align-items: center; gap: 32px; }
+.nav__links a { font-size: 0.85rem; font-weight: 400; letter-spacing: 0.05em; text-transform: uppercase; color: rgba(255, 255, 255, 0.85); transition: var(--transition); position: relative; }
+.nav__links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 1px; background: currentColor; transition: width 0.3s ease; }
+.nav__links a:hover::after { width: 100%; }
+.nav--scrolled .nav__links a { color: var(--color-text-light); }
+.nav--scrolled .nav__links a:hover { color: var(--color-text); }
+
+.lang-toggle { background: transparent; border: 1px solid rgba(255, 255, 255, 0.5); color: rgba(255, 255, 255, 0.85); padding: 4px 12px; font-size: 0.75rem; font-family: var(--font-body); letter-spacing: 0.1em; cursor: pointer; transition: var(--transition); border-radius: 2px; }
+.nav--scrolled .lang-toggle { border-color: var(--color-border); color: var(--color-text-light); }
+.lang-toggle:hover { background: rgba(255, 255, 255, 0.15); }
+.nav--scrolled .lang-toggle:hover { background: var(--color-bg-alt); }
+
+.nav__hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; z-index: 110; }
+.nav__hamburger span { display: block; width: 24px; height: 1.5px; background: var(--color-white); margin: 6px 0; transition: var(--transition); }
+.nav--scrolled .nav__hamburger span { background: var(--color-text); }
+.nav__hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav__hamburger.active span:nth-child(2) { opacity: 0; }
+.nav__hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(6px, -6px); }
+
+.mobile-menu { display: none; position: fixed; inset: 0; background: rgba(250, 250, 248, 0.98); backdrop-filter: blur(20px); z-index: 99; flex-direction: column; justify-content: center; align-items: center; gap: 32px; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+.mobile-menu.active { opacity: 1; pointer-events: all; }
+.mobile-menu a { font-family: var(--font-heading); font-size: 2rem; color: var(--color-text); transition: var(--transition); }
+.mobile-menu a:hover { color: var(--color-accent); }
+.mobile-menu .lang-toggle { border-color: var(--color-border); color: var(--color-text-light); margin-top: 16px; }
+
+.hero { position: relative; height: 100vh; min-height: 600px; display: flex; align-items: center; justify-content: center; background-image: url('images/hero.jpg'); background-size: cover; background-position: center; }
+.hero__overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.15) 50%, rgba(0,0,0,0.4) 100%); }
+.hero__content { position: relative; text-align: center; color: var(--color-white); }
+.hero__title { font-family: var(--font-heading); font-size: clamp(3rem, 8vw, 6rem); font-weight: 300; letter-spacing: 0.08em; margin-bottom: 12px; line-height: 1.1; }
+.hero__subtitle { font-size: clamp(1rem, 2vw, 1.2rem); font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.9; margin-bottom: 8px; }
+.hero__location { font-family: var(--font-heading); font-size: 1.1rem; font-style: italic; opacity: 0.8; margin-bottom: 40px; }
+.hero__cta { display: inline-block; padding: 12px 40px; border: 1px solid rgba(255,255,255,0.6); color: var(--color-white); font-size: 0.85rem; font-weight: 400; letter-spacing: 0.15em; text-transform: uppercase; transition: var(--transition); }
+.hero__cta:hover { background: rgba(255,255,255,0.15); border-color: var(--color-white); }
+
+.section { padding: 100px 0; }
+.section--alt { background: var(--color-bg-alt); }
+.section__title { font-family: var(--font-heading); font-size: clamp(2rem, 4vw, 2.8rem); font-weight: 400; text-align: center; margin-bottom: 16px; letter-spacing: 0.03em; }
+.section__intro { text-align: center; color: var(--color-text-light); font-size: 1.05rem; max-width: 600px; margin: 0 auto 60px; }
+
+.about__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+.about__text p { margin-bottom: 20px; color: var(--color-text-light); font-size: 1.05rem; }
+.about__image img { border-radius: 12px; aspect-ratio: 4/3; object-fit: cover; width: 100%; }
+.about__stats { display: flex; justify-content: center; gap: 80px; padding-top: 40px; border-top: 1px solid var(--color-border); }
+.stat { text-align: center; }
+.stat__number { display: block; font-family: var(--font-heading); font-size: 2.5rem; font-weight: 400; color: var(--color-accent); line-height: 1.2; }
+.stat__label { font-size: 0.85rem; color: var(--color-text-light); text-transform: uppercase; letter-spacing: 0.1em; }
+
+.rooms__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.room-card { background: var(--color-white); padding: 40px 28px; border-radius: 12px; text-align: center; transition: var(--transition); }
+.room-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.06); }
+.room-card__icon { color: var(--color-accent); margin-bottom: 20px; }
+.room-card h3 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 500; margin-bottom: 10px; }
+.room-card p { color: var(--color-text-light); font-size: 0.9rem; }
+
+.gallery__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.gallery__item { overflow: hidden; border-radius: 8px; cursor: pointer; }
+.gallery__item--large { grid-column: span 2; }
+.gallery__item img { width: 100%; height: 280px; object-fit: cover; transition: transform 0.6s ease; }
+.gallery__item--large img { height: 340px; }
+.gallery__item:hover img { transform: scale(1.05); }
+
+.lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 200; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; }
+.lightbox.active { opacity: 1; pointer-events: all; }
+.lightbox__img { max-width: 90vw; max-height: 85vh; object-fit: contain; border-radius: 4px; }
+.lightbox__close, .lightbox__prev, .lightbox__next { position: absolute; background: none; border: none; color: white; cursor: pointer; font-size: 2rem; padding: 16px; transition: var(--transition); opacity: 0.7; }
+.lightbox__close:hover, .lightbox__prev:hover, .lightbox__next:hover { opacity: 1; }
+.lightbox__close { top: 20px; right: 24px; font-size: 2.5rem; }
+.lightbox__prev { left: 24px; font-size: 3rem; }
+.lightbox__next { right: 24px; font-size: 3rem; }
+
+.location__grid { display: grid; grid-template-columns: 2fr 1fr; gap: 40px; align-items: start; }
+.location__highlights { display: flex; flex-direction: column; gap: 20px; padding-top: 8px; }
+.highlight { display: flex; align-items: center; gap: 16px; padding: 16px 20px; background: var(--color-white); border-radius: 8px; }
+.highlight__distance { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 500; color: var(--color-accent); min-width: 60px; }
+.highlight__place { font-size: 0.95rem; color: var(--color-text); }
+
+.contact__actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+.btn { display: inline-block; padding: 16px 48px; font-size: 0.85rem; font-weight: 400; font-family: var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; border-radius: 4px; transition: var(--transition); cursor: pointer; border: none; }
+.btn--primary { background: var(--color-accent); color: var(--color-white); }
+.btn--primary:hover { background: var(--color-accent-hover); }
+.btn--secondary { background: transparent; color: var(--color-accent); border: 1px solid var(--color-accent); }
+.btn--secondary:hover { background: var(--color-accent); color: var(--color-white); }
+
+.footer { background: var(--color-text); color: rgba(255,255,255,0.7); padding: 60px 0 30px; }
+.footer__content { display: flex; justify-content: space-between; align-items: start; padding-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+.footer__logo { font-family: var(--font-heading); font-size: 1.5rem; color: var(--color-white); display: block; margin-bottom: 8px; }
+.footer__brand p { font-size: 0.9rem; }
+.footer__links { display: flex; gap: 28px; }
+.footer__links a { font-size: 0.85rem; letter-spacing: 0.05em; transition: var(--transition); }
+.footer__links a:hover { color: var(--color-white); }
+.footer__bottom { padding-top: 24px; text-align: center; font-size: 0.8rem; opacity: 0.6; }
+
+.fade-in { opacity: 0; transform: translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity: 1; transform: translateY(0); }
+
+.calendar { max-width: 800px; margin: 0 auto; }
+.calendar__nav { display: flex; align-items: center; justify-content: space-between; margin-bottom: 32px; }
+.calendar__month { font-family: var(--font-heading); font-size: 1.8rem; font-weight: 400; letter-spacing: 0.03em; }
+.calendar__btn { background: none; border: 1px solid var(--color-border); color: var(--color-text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; transition: var(--transition); display: flex; align-items: center; justify-content: center; }
+.calendar__btn:hover { border-color: var(--color-accent); color: var(--color-accent); }
+.calendar__grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+.calendar__weekday { text-align: center; font-size: 0.75rem; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-text-light); padding: 8px 0 16px; }
+.calendar__day { aspect-ratio: 1; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; border-radius: 50%; cursor: default; transition: var(--transition); }
+.calendar__day--available { color: var(--color-text); }
+.calendar__day--booked { background: var(--color-bg-alt); color: var(--color-text-light); text-decoration: line-through; opacity: 0.5; }
+.calendar__day--today { border: 1px solid var(--color-accent); color: var(--color-accent); font-weight: 500; }
+.calendar__day--past { opacity: 0.3; }
+.calendar__legend { display: flex; justify-content: center; gap: 32px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--color-border); }
+.legend__item { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--color-text-light); }
+.legend__dot { width: 12px; height: 12px; border-radius: 50%; }
+.legend__dot--available { border: 1px solid var(--color-border); background: white; }
+.legend__dot--booked { background: var(--color-bg-alt); border: 1px solid var(--color-border); opacity: 0.5; }
+.calendar__loading { text-align: center; padding: 60px; color: var(--color-text-light); font-size: 0.95rem; }
+
+@media (max-width: 968px) {
+  .nav__links { display: none; }
+  .nav__hamburger { display: block; }
+  .mobile-menu { display: flex; }
+  .about__grid { grid-template-columns: 1fr; gap: 40px; }
+  .about__image { order: -1; }
+  .rooms__grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery__grid { grid-template-columns: repeat(2, 1fr); }
+  .gallery__item--large { grid-column: span 1; }
+  .gallery__item img, .gallery__item--large img { height: 220px; }
+  .location__grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 600px) {
+  .nav { padding: 16px 20px; }
+  .section { padding: 70px 0; }
+  .about__stats { gap: 40px; }
+  .rooms__grid { grid-template-columns: 1fr; }
+  .gallery__grid { grid-template-columns: 1fr; gap: 12px; }
+  .gallery__item img, .gallery__item--large img { height: 240px; }
+  .contact__actions { flex-direction: column; align-items: center; }
+  .footer__content { flex-direction: column; gap: 24px; }
+  .footer__links { flex-wrap: wrap; gap: 16px; }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" id="nav">
+    <a href="#" class="nav__logo">L'Aleanto</a>
+    <div class="nav__links">
+      <a href="#about" data-it="Chi siamo" data-en="About">Chi siamo</a>
+      <a href="#rooms" data-it="Alloggio" data-en="Accommodation">Alloggio</a>
+      <a href="#gallery" data-it="Galleria" data-en="Gallery">Galleria</a>
+      <a href="#location" data-it="Posizione" data-en="Location">Posizione</a>
+      <a href="#availability" data-it="Disponibilità" data-en="Availability">Disponibilità</a>
+      <a href="#contact" data-it="Contatti" data-en="Contact">Contatti</a>
+      <button class="lang-toggle" id="langToggle" aria-label="Switch language">EN</button>
+    </div>
+    <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" data-it="Chi siamo" data-en="About">Chi siamo</a>
+    <a href="#rooms" data-it="Alloggio" data-en="Accommodation">Alloggio</a>
+    <a href="#gallery" data-it="Galleria" data-en="Gallery">Galleria</a>
+    <a href="#location" data-it="Posizione" data-en="Location">Posizione</a>
+    <a href="#availability" data-it="Disponibilità" data-en="Availability">Disponibilità</a>
+    <a href="#contact" data-it="Contatti" data-en="Contact">Contatti</a>
+    <button class="lang-toggle" id="langToggleMobile" aria-label="Switch language">EN</button>
+  </div>
+
+  <!-- Hero -->
+  <header class="hero" id="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__content">
+      <h1 class="hero__title">L'Aleanto</h1>
+      <p class="hero__subtitle" data-it="Un rifugio sulla Costiera Amalfitana" data-en="A retreat on the Amalfi Coast">Un rifugio sulla Costiera Amalfitana</p>
+      <p class="hero__location">Conca dei Marini</p>
+      <a href="#about" class="hero__cta" data-it="Scopri" data-en="Discover">Scopri</a>
+    </div>
+  </header>
+
+  <!-- About -->
+  <section class="section" id="about">
+    <div class="container">
+      <h2 class="section__title" data-it="Benvenuti a L'Aleanto" data-en="Welcome to L'Aleanto">Benvenuti a L'Aleanto</h2>
+      <div class="about__grid">
+        <div class="about__text">
+          <p data-it="Immerso nella tranquillità di Conca dei Marini, L'Aleanto è un rifugio intimo che offre privacy e serenità nel cuore della Costiera Amalfitana. Un luogo dove il tempo rallenta e ogni dettaglio è pensato per il vostro comfort." data-en="Nestled in the tranquility of Conca dei Marini, L'Aleanto is an intimate retreat offering privacy and serenity in the heart of the Amalfi Coast. A place where time slows down and every detail is designed for your comfort.">Immerso nella tranquillità di Conca dei Marini, L'Aleanto è un rifugio intimo che offre privacy e serenità nel cuore della Costiera Amalfitana. Un luogo dove il tempo rallenta e ogni dettaglio è pensato per il vostro comfort.</p>
+          <p data-it="La casa è circondata da uno splendido giardino recintato, con due terrazze panoramiche — perfette per colazioni al sole o serate sotto le stelle." data-en="The house is surrounded by a beautiful enclosed garden, with two panoramic terraces — perfect for sunny breakfasts or evenings under the stars.">La casa è circondata da uno splendido giardino recintato, con due terrazze panoramiche — perfette per colazioni al sole o serate sotto le stelle.</p>
+        </div>
+        <div class="about__image">
+          <img src="images/terrazza-colazione.jpg" alt="L'Aleanto - Terrazza" loading="lazy">
+        </div>
+      </div>
+      <div class="about__stats">
+        <div class="stat">
+          <span class="stat__number">4.86</span>
+          <span class="stat__label" data-it="Valutazione" data-en="Rating">Valutazione</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number">44</span>
+          <span class="stat__label" data-it="Recensioni" data-en="Reviews">Recensioni</span>
+        </div>
+        <div class="stat">
+          <span class="stat__number">4</span>
+          <span class="stat__label" data-it="Ospiti max" data-en="Max guests">Ospiti max</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section class="section section--alt" id="rooms">
+    <div class="container">
+      <h2 class="section__title" data-it="L'alloggio" data-en="Accommodation">L'alloggio</h2>
+      <p class="section__intro" data-it="Ogni spazio è stato pensato per offrire il massimo del comfort, mantenendo l'autenticità della tradizione costiera." data-en="Every space has been designed to offer maximum comfort while maintaining the authenticity of coastal tradition.">Ogni spazio è stato pensato per offrire il massimo del comfort, mantenendo l'autenticità della tradizione costiera.</p>
+      <div class="rooms__grid">
+        <div class="room-card">
+          <div class="room-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7"/><path d="M21 10H3V7a2 2 0 012-2h14a2 2 0 012 2v3z"/><path d="M7 10V5"/><path d="M17 10V5"/></svg>
+          </div>
+          <h3 data-it="Camera Matrimoniale" data-en="Double Bedroom">Camera Matrimoniale</h3>
+          <p data-it="Con terrazzo privato e vista sul giardino" data-en="With private terrace and garden view">Con terrazzo privato e vista sul giardino</p>
+        </div>
+        <div class="room-card">
+          <div class="room-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7v11a2 2 0 002 2h14a2 2 0 002-2V7"/><path d="M21 10H3V7a2 2 0 012-2h14a2 2 0 012 2v3z"/><path d="M12 10V5"/></svg>
+          </div>
+          <h3 data-it="Camera Doppia" data-en="Twin Bedroom">Camera Doppia</h3>
+          <p data-it="Due letti singoli, luminosa e accogliente" data-en="Two single beds, bright and welcoming">Due letti singoli, luminosa e accogliente</p>
+        </div>
+        <div class="room-card">
+          <div class="room-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12h16"/><path d="M4 18h16"/><path d="M12 6v12"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          </div>
+          <h3 data-it="Salotto" data-en="Living Room">Salotto</h3>
+          <p data-it="Con divano e angolo cottura attrezzato" data-en="With sofa and equipped kitchenette">Con divano e angolo cottura attrezzato</p>
+        </div>
+        <div class="room-card">
+          <div class="room-card__icon">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3c-4.97 0-9 4.03-9 9v6h18v-6c0-4.97-4.03-9-9-9z"/><path d="M6 21v-3"/><path d="M18 21v-3"/></svg>
+          </div>
+          <h3 data-it="Terrazza e Giardino" data-en="Terrace & Garden">Terrazza e Giardino</h3>
+          <p data-it="Due terrazze panoramiche e doccia esterna calda" data-en="Two panoramic terraces and outdoor hot shower">Due terrazze panoramiche e doccia esterna calda</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery -->
+  <section class="section" id="gallery">
+    <div class="container">
+      <h2 class="section__title" data-it="Galleria" data-en="Gallery">Galleria</h2>
+      <div class="gallery__grid">
+        <div class="gallery__item gallery__item--large">
+          <img src="images/terrazza-mare-wide.jpg" alt="L'Aleanto - Terrazza con vista mare" loading="lazy">
+        </div>
+        <div class="gallery__item">
+          <img src="images/giardino-fiori.jpg" alt="L'Aleanto - Giardino" loading="lazy">
+        </div>
+        <div class="gallery__item">
+          <img src="images/bouganville-cielo.jpg" alt="L'Aleanto - Bouganville" loading="lazy">
+        </div>
+        <div class="gallery__item">
+          <img src="images/caffe-moka.jpg" alt="L'Aleanto - Colazione" loading="lazy">
+        </div>
+        <div class="gallery__item">
+          <img src="images/moka-dettaglio.jpg" alt="L'Aleanto - Moka" loading="lazy">
+        </div>
+        <div class="gallery__item gallery__item--large">
+          <img src="images/torre-mare.jpg" alt="L'Aleanto - Torre sul mare" loading="lazy">
+        </div>
+        <div class="gallery__item">
+          <img src="images/costa-rocce.jpg" alt="L'Aleanto - Costa" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox__close" aria-label="Close">&times;</button>
+    <button class="lightbox__prev" aria-label="Previous">&lsaquo;</button>
+    <button class="lightbox__next" aria-label="Next">&rsaquo;</button>
+    <img class="lightbox__img" src="" alt="">
+  </div>
+
+  <!-- Location -->
+  <section class="section section--alt" id="location">
+    <div class="container">
+      <h2 class="section__title" data-it="Posizione" data-en="Location">Posizione</h2>
+      <p class="section__intro" data-it="Conca dei Marini, un gioiello nascosto della Costiera Amalfitana, tra Amalfi e Positano." data-en="Conca dei Marini, a hidden gem of the Amalfi Coast, between Amalfi and Positano.">Conca dei Marini, un gioiello nascosto della Costiera Amalfitana, tra Amalfi e Positano.</p>
+      <div class="location__grid">
+        <div class="location__map">
+          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3024.5!2d14.574!3d40.6142!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x133b97b0a6e9f0e1%3A0x0!2sConca+dei+Marini!5e0!3m2!1sit!2sit!4v1700000000000" width="100%" height="400" style="border:0; border-radius: 12px;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="location__highlights">
+          <div class="highlight">
+            <span class="highlight__distance">2 min</span>
+            <span class="highlight__place" data-it="Grotta dello Smeraldo" data-en="Emerald Grotto">Grotta dello Smeraldo</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight__distance">5 min</span>
+            <span class="highlight__place">Amalfi</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight__distance">15 min</span>
+            <span class="highlight__place">Positano</span>
+          </div>
+          <div class="highlight">
+            <span class="highlight__distance">20 min</span>
+            <span class="highlight__place">Ravello</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Availability -->
+  <section class="section" id="availability">
+    <div class="container">
+      <h2 class="section__title" data-it="Disponibilità" data-en="Availability">Disponibilità</h2>
+      <p class="section__intro" data-it="Verifica le date libere e prenota il tuo soggiorno." data-en="Check available dates and book your stay.">Verifica le date libere e prenota il tuo soggiorno.</p>
+      <div class="calendar" id="calendar">
+        <div class="calendar__nav">
+          <button class="calendar__btn" id="calPrev">&#8249;</button>
+          <span class="calendar__month" id="calMonth"></span>
+          <button class="calendar__btn" id="calNext">&#8250;</button>
+        </div>
+        <div class="calendar__grid" id="calGrid">
+          <div class="calendar__loading">Caricamento disponibilità...</div>
+        </div>
+        <div class="calendar__legend">
+          <div class="legend__item"><div class="legend__dot legend__dot--available"></div><span data-it="Disponibile" data-en="Available">Disponibile</span></div>
+          <div class="legend__item"><div class="legend__dot legend__dot--booked"></div><span data-it="Occupato" data-en="Booked">Occupato</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="section" id="contact">
+    <div class="container container--narrow">
+      <h2 class="section__title" data-it="Prenota il tuo soggiorno" data-en="Book your stay">Prenota il tuo soggiorno</h2>
+      <p class="section__intro" data-it="Contattaci direttamente o prenota tramite Airbnb." data-en="Contact us directly or book via Airbnb.">Contattaci direttamente o prenota tramite Airbnb.</p>
+      <div class="contact__actions">
+        <a href="https://www.airbnb.it/rooms/33516234" target="_blank" rel="noopener" class="btn btn--primary" data-it="Prenota su Airbnb" data-en="Book on Airbnb">Prenota su Airbnb</a>
+        <a href="/cdn-cgi/l/email-protection#cda4a3aba28da1aca1a8aca3b9a2e3a4b9" class="btn btn--secondary" data-it="Scrivici" data-en="Write to us">Scrivici</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__content">
+        <div class="footer__brand">
+          <span class="footer__logo">L'Aleanto</span>
+          <p>Conca dei Marini, Costiera Amalfitana</p>
+        </div>
+        <div class="footer__links">
+          <a href="#about" data-it="Chi siamo" data-en="About">Chi siamo</a>
+          <a href="#rooms" data-it="Alloggio" data-en="Accommodation">Alloggio</a>
+          <a href="#gallery" data-it="Galleria" data-en="Gallery">Galleria</a>
+          <a href="#contact" data-it="Contatti" data-en="Contact">Contatti</a>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 L'Aleanto. <span data-it="Tutti i diritti riservati." data-en="All rights reserved.">Tutti i diritti riservati.</span></p>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.getElementById('nav');
+  const handleScroll = () => { nav.classList.toggle('nav--scrolled', window.scrollY > 60); };
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  handleScroll();
+
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => { hamburger.classList.remove('active'); mobileMenu.classList.remove('active'); document.body.style.overflow = ''; });
+  });
+
+  let currentLang = 'it';
+  const langToggles = [document.getElementById('langToggle'), document.getElementById('langToggleMobile')];
+  const translatableElements = document.querySelectorAll('[data-it][data-en]');
+  function switchLanguage() {
+    currentLang = currentLang === 'it' ? 'en' : 'it';
+    langToggles.forEach(btn => { if (btn) btn.textContent = currentLang === 'it' ? 'EN' : 'IT'; });
+    translatableElements.forEach(el => { const text = el.getAttribute('data-' + currentLang); if (text) el.textContent = text; });
+    document.documentElement.lang = currentLang;
+  }
+  langToggles.forEach(btn => { if (btn) btn.addEventListener('click', switchLanguage); });
+
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', (e) => {
+      const target = document.querySelector(anchor.getAttribute('href'));
+      if (target) { e.preventDefault(); window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); }
+    });
+  });
+
+  const fadeElements = document.querySelectorAll('.section__title, .section__intro, .about__text, .about__image, .about__stats, .room-card, .gallery__item, .highlight, .contact__actions');
+  fadeElements.forEach(el => el.classList.add('fade-in'));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+  fadeElements.forEach(el => observer.observe(el));
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = lightbox.querySelector('.lightbox__img');
+  const galleryItems = document.querySelectorAll('.gallery__item img');
+  let currentIndex = 0;
+  const images = Array.from(galleryItems).map(img => img.src);
+  function openLightbox(index) { currentIndex = index; lightboxImg.src = images[currentIndex]; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; }
+  function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+  function navigateLightbox(direction) { currentIndex = (currentIndex + direction + images.length) % images.length; lightboxImg.src = images[currentIndex]; }
+  galleryItems.forEach((img, i) => { img.addEventListener('click', () => openLightbox(i)); });
+  lightbox.querySelector('.lightbox__close').addEventListener('click', closeLightbox);
+  lightbox.querySelector('.lightbox__prev').addEventListener('click', () => navigateLightbox(-1));
+  lightbox.querySelector('.lightbox__next').addEventListener('click', () => navigateLightbox(1));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+  document.addEventListener('keydown', (e) => { if (!lightbox.classList.contains('active')) return; if (e.key === 'Escape') closeLightbox(); else if (e.key === 'ArrowLeft') navigateLightbox(-1); else if (e.key === 'ArrowRight') navigateLightbox(1); });
+
+  // ── CALENDARIO CUSTOM ──────────────────────────────────────────
+  const MONTHS_IT = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+  const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const DAYS_IT = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+  const DAYS_EN = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+  let bookedDates = new Set();
+  let calDate = new Date();
+  let calLang = 'it';
+
+  async function loadCalendar() {
+    try {
+      const res = await fetch('/api/calendar');
+      const data = await res.json();
+      bookedDates = new Set();
+      if (data.events) {
+        data.events.forEach(ev => {
+          let d = new Date(ev.start.substring(0,4), parseInt(ev.start.substring(4,6))-1, parseInt(ev.start.substring(6,8)));
+          const end = new Date(ev.end.substring(0,4), parseInt(ev.end.substring(4,6))-1, parseInt(ev.end.substring(6,8)));
+          while (d < end) {
+            bookedDates.add(d.toISOString().substring(0,10));
+            d.setDate(d.getDate()+1);
+          }
+        });
+      }
+    } catch(e) { console.log('Calendar load error', e); }
+    renderCalendar();
+  }
+
+  function renderCalendar() {
+    const months = calLang === 'it' ? MONTHS_IT : MONTHS_EN;
+    const days = calLang === 'it' ? DAYS_IT : DAYS_EN;
+    document.getElementById('calMonth').textContent = months[calDate.getMonth()] + ' ' + calDate.getFullYear();
+
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+
+    // Intestazioni giorni
+    days.forEach(d => {
+      const el = document.createElement('div');
+      el.className = 'calendar__weekday';
+      el.textContent = d;
+      grid.appendChild(el);
+    });
+
+    const today = new Date(); today.setHours(0,0,0,0);
+    const year = calDate.getFullYear();
+    const month = calDate.getMonth();
+    const firstDay = new Date(year, month, 1);
+    // Lunedì = 0
+    let startOffset = (firstDay.getDay() + 6) % 7;
+    const daysInMonth = new Date(year, month+1, 0).getDate();
+
+    // Celle vuote
+    for (let i = 0; i < startOffset; i++) {
+      const el = document.createElement('div');
+      el.className = 'calendar__day calendar__day--empty';
+      grid.appendChild(el);
+    }
+
+    for (let d = 1; d <= daysInMonth; d++) {
+      const el = document.createElement('div');
+      const date = new Date(year, month, d);
+      const dateStr = date.toISOString().substring(0,10);
+      let cls = 'calendar__day';
+      if (date < today) cls += ' calendar__day--past';
+      else if (bookedDates.has(dateStr)) cls += ' calendar__day--booked';
+      else cls += ' calendar__day--available';
+      if (date.toDateString() === today.toDateString()) cls += ' calendar__day--today';
+      el.className = cls;
+      el.textContent = d;
+      grid.appendChild(el);
+    }
+  }
+
+  document.getElementById('calPrev').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()-1); renderCalendar(); });
+  document.getElementById('calNext').addEventListener('click', () => { calDate.setMonth(calDate.getMonth()+1); renderCalendar(); });
+
+  // Aggiorna lingua calendario al switch lingua
+  langToggles.forEach(btn => { if (btn) btn.addEventListener('click', () => { calLang = currentLang; renderCalendar(); }); });
+
+  loadCalendar();
+});
+</script>
+</body>
+</html>
